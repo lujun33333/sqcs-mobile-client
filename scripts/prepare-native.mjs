@@ -22,7 +22,14 @@ for (const platform of platforms) {
   catch { cap('add', platform); }
   if (platform === 'android') {
     await patch('android/variables.gradle', s => s.replace(/minSdkVersion\s*=\s*\d+/, 'minSdkVersion = 26'));
-    await patch('android/app/src/main/AndroidManifest.xml', s => s.includes('android:usesCleartextTraffic=') ? s : s.replace('<application', '<application android:usesCleartextTraffic="true"'));
+    await patch('android/app/src/main/AndroidManifest.xml', s => {
+      let next = s.includes('android:usesCleartextTraffic=') ? s : s.replace('<application', '<application android:usesCleartextTraffic="true"');
+      if (!next.includes('xmlns:tools=')) next = next.replace('<manifest ', '<manifest xmlns:tools="http://schemas.android.com/tools" ');
+      for (const permission of ['CAMERA', 'RECORD_AUDIO', 'ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION']) {
+        if (!next.includes(`android.permission.${permission}`)) next = next.replace('</manifest>', `    <uses-permission android:name="android.permission.${permission}" tools:node="remove" />\n</manifest>`);
+      }
+      return next;
+    });
     const sizes = { mdpi: 48, hdpi: 72, xhdpi: 96, xxhdpi: 144, xxxhdpi: 192 };
     for (const [density, size] of Object.entries(sizes)) {
       const folder = resolve(root, `android/app/src/main/res/mipmap-${density}`);

@@ -4,6 +4,7 @@
 
 - 地址只允许 HTTP / HTTPS，拒绝用户名、密码、查询参数和片段；界面使用 `textContent`，不把网址插入 HTML。
 - 启动器只保存入口网址，不接收游戏账号和密码；游戏在独立 InAppBrowser WebView 中运行，维持页面自己的 Cookie 与鉴权。Android 保持插件默认的隔离进程。
+- 首轮云端包检查发现上游浏览器库带入相机、录音和定位声明。客户端清单移除这些非必要权限，流水线同时检查合并后的实际 APK 权限，并用 Android SDK 的 apksigner 验签。
 - 未配置 Capacitor `server.url` 或对外页面的 native bridge 权限，未增加证书校验绕过。HTTP 仅作为兼容用户指定的本地测试入口；iOS 放开范围限于 Web 内容和本地联网。
 - GitHub token 仅 `contents: read`；Actions 固定到核对过的提交 SHA。外部构建参数只通过环境变量交给 URL 解析器，不拼入 shell 命令。
 - npm 依赖固定版本，锁文件使用官方 npm 源和完整性摘要。`xcode` 只调用 `uuid.v4()`；其旧 `uuid` 的 v3/v5/v6 缓冲区边界问题用 `11.1.1` 覆盖，已实际验证 Xcode 工程解析与 UUID 生成。官方 npm audit 结果为 0 个漏洞。

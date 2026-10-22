@@ -50,6 +50,17 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
+      - name: Verify APK signing and minimal permissions
+        run: |
+          apk=android/app/build/outputs/apk/debug/app-debug.apk
+          apksigner=$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -n 1)
+          "$apksigner" verify --verbose "$apk"
+          permissions=$("$ANDROID_HOME/cmdline-tools/latest/bin/apkanalyzer" manifest permissions "$apk")
+          printf '%s\n' "$permissions"
+          if printf '%s\n' "$permissions" | grep -Eq 'android.permission.(CAMERA|RECORD_AUDIO|ACCESS_FINE_LOCATION|ACCESS_COARSE_LOCATION)'; then
+            echo 'Unexpected camera, microphone or location permission in final APK.'
+            exit 1
+          fi
       - name: Collect APK and checksum
         run: |
           mkdir -p artifacts
