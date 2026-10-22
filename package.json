@@ -1,0 +1,27 @@
+{
+  "name": "sqcs-mobile-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm run test && npm run build && node scripts/verify-public.mjs",
+    "native": "node scripts/prepare-native.mjs",
+    "preview": "node scripts/preview.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/inappbrowser": "4.1.0",
+    "@capacitor/ios": "8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3",
+    "esbuild": "0.28.2"
+  },
+  "overrides": {
+    "xcode": { "uuid": "11.1.1" }
+  }
+}

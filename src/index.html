@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f8f7">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>神器传说</title>
+  <link rel="icon" href="icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topline"><span class="brand"><span class="brand-dot"></span>神器传说</span><span class="edition">移动客户端</span></header>
+    <section class="intro" aria-labelledby="title">
+      <img class="app-icon" src="icon.png" width="88" height="88" alt="">
+      <p class="eyebrow">你的修行，随时继续</p>
+      <h1 id="title">再入仙途</h1>
+      <p class="subtitle">连接游戏入口，继续你的旅程。</p>
+    </section>
+    <section class="card" aria-label="连接游戏">
+      <div class="card-heading"><h2>游戏入口</h2><span class="tag">首次设置</span></div>
+      <form id="entry-form" novalidate>
+        <label for="entry-url">登录网址</label>
+        <input id="entry-url" name="entry" type="url" placeholder="https://game.example.com/" autocomplete="url" autocapitalize="none" spellcheck="false" enterkeyhint="go" aria-describedby="entry-help status">
+        <p class="help" id="entry-help">填写你平时使用的游戏登录页，地址只保存在本机。</p>
+        <p class="local-note" id="local-note" hidden>127.0.0.1 指当前手机。连接电脑上的本地服，请改填电脑局域网地址，并使用可供手机访问的独立测试服务。</p>
+        <button class="primary" id="open-game" type="submit"><span>进入游戏</span><span aria-hidden="true">↗</span></button>
+      </form>
+      <p id="status" class="status" role="status" aria-live="polite">设置一次，下次可直接进入。</p>
+      <button class="text-button" id="forget-entry" type="button">清除保存的入口</button>
+    </section>
+    <section class="notes" aria-label="使用提示"><p><span class="note-mark">01</span>使用原有游戏账号登录，无需重新创建角色。</p><p><span class="note-mark">02</span>游戏窗口关闭后会返回这里，可更换入口。</p></section>
+    <footer><span>神器传说 · 随行</span><span id="version"></span></footer>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

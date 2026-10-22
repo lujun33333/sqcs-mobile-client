@@ -1,0 +1,8 @@
+{
+  "appId": "com.sqcs.launcher",
+  "appName": "神器传说",
+  "webDir": "dist",
+  "backgroundColor": "#f6f8f7",
+  "android": { "backgroundColor": "#f6f8f7" },
+  "ios": { "contentInset": "automatic", "backgroundColor": "#f6f8f7" }
+}
